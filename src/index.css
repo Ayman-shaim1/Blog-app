@@ -1,0 +1,92 @@
+main {
+  min-height: 550px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+strong,
+p {
+  letter-spacing: 0;
+}
+/* ul {
+  list-style: none;
+} */
+textarea {
+  resize: none;
+  min-height: 100px;
+}
+a{
+  text-decoration: none;
+}
+.nav-link {
+  font-size: 10px;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.avatar{
+  width:40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.category {
+  cursor: pointer;
+}
+.article-image {
+  max-width: 450px;
+}
+.btn-status.active{
+  background-color: #ced4da !important;
+  color: #fff;
+} 
+.in-change-photo {
+  top: 2%;
+  right: 2%;
+}
+.fabebookAuth-button {
+  background-color: rgb(65, 34, 175);
+}
+#collasible-nav-dropdown-sm {
+  color: #f4f4f4;
+  display: none;
+}
+
+.v-btn:hover {
+  background-color: #f4f4f4 !important;
+}
+.btn-like:hover {
+  color: var(--bs-danger);
+}
+.btn-favorite:hover {
+  color: var(--bs-warning);
+}
+.fabebookAuth-button:hover {
+  background-color: rgb(39, 6, 155);
+}
+.nav-link-drp {
+  margin-right: 55px;
+}
+.iv-info-article {
+  right: 1%;
+  top: 2%;
+}
+div[aria-labelledby="collasible-nav-dropdown-sm"].dropdown-menu.show {
+  display: none !important;
+}
+@media only screen and (max-width: 991px) {
+  #collasible-nav-dropdown {
+    display: none;
+    font-size: 6px;
+  }
+  #collasible-nav-dropdown-sm {
+    display: block;
+  }
+  div[aria-labelledby="collasible-nav-dropdown-sm"].dropdown-menu.show {
+    display: block !important;
+  }
+}
+
