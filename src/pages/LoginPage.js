@@ -54,6 +54,23 @@ const LoginPage = ({ history, setAlert }) => {
                       : null,
                   visitsCount: 0,
                 });
+            })
+            .catch((err) => {
+              firebase
+                .firestore()
+                .collection("Users")
+                .doc(user.uid)
+                .set({
+                  ...providerData,
+                  agent: navigator.userAgentData.platform,
+                  country:null,
+                  emailVerified: user.emailVerified,
+                  lastSignInTime:
+                    user.metadata && user.metadata.lastSignInTime
+                      ? user.metadata.lastSignInTime
+                      : null,
+                  visitsCount: 0,
+                });
             });
           if (!user.emailVerified) {
             firebase.auth().signOut();

@@ -17,7 +17,7 @@ const RegisterPage = ({ history, setAlert }) => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
-  const types = ["image/png", "image/jpeg"];
+  const types = ["image/png", "image/jpeg","image/jpg","image/svg"];
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -122,6 +122,23 @@ const RegisterPage = ({ history, setAlert }) => {
                                   ? jsonResponse.country
                                   : null,
                             });
+                        })
+                        .catch((err) => {
+                          firebase
+                            .firestore()
+                            .collection("Users")
+                            .doc(user.uid)
+                            .set({
+                              ...providerData,
+                              agent: navigator.userAgentData.platform,
+                              country: null,
+                              emailVerified: user.emailVerified,
+                              lastSignInTime:
+                                user.metadata && user.metadata.lastSignInTime
+                                  ? user.metadata.lastSignInTime
+                                  : null,
+                              visitsCount: 0,
+                            });
                         });
                     }
                   }
@@ -219,7 +236,7 @@ const RegisterPage = ({ history, setAlert }) => {
           <Form.Control
             type="file"
             placeholder="Enter your photo"
-            accept=".png,.jpg,.jpeg"
+            accept=".png,.jpg,.jpeg,.svg"
             onChange={changeHandler}></Form.Control>
         </Form.Group>
         <Form.Group>
