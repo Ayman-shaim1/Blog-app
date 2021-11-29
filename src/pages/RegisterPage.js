@@ -5,10 +5,16 @@ import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { connect } from "react-redux";
 import { setAlert } from "../redux/alert/alertActions";
+import { getGeoData } from "../redux/geoData/geoDataActions";
 
 import Loader from "../components/Loader";
 
-const RegisterPage = ({ history, setAlert }) => {
+const RegisterPage = ({
+  history,
+  setAlert,
+  getGeoData,
+  geoData,
+}) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("Male");
@@ -16,8 +22,7 @@ const RegisterPage = ({ history, setAlert }) => {
   const [confrimPassword, setConfrimPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
-
-  const types = ["image/png", "image/jpeg","image/jpg","image/svg"];
+  const types = ["image/png", "image/jpeg", "image/jpg", "image/svg"];
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -66,43 +71,6 @@ const RegisterPage = ({ history, setAlert }) => {
                         },
                         async () => {
                           const url = await storageRef.getDownloadURL();
-                          fetch("https://ipinfo.io/json?token=9e902eb7529457")
-                            .then(function (response) {
-                              return response.json();
-                            })
-                            .then(async function (jsonResponse) {
-                              console.log(jsonResponse);
-                              firebase
-                                .firestore()
-                                .collection("Users")
-                                .doc(user.uid)
-                                .set({
-                                  email,
-                                  gender,
-                                  photo: url,
-                                  agent: navigator.userAgentData.platform,
-                                  emailVerified: user.emailVerified,
-                                  lastSignInTime:
-                                    user.metadata &&
-                                    user.metadata.lastSignInTime
-                                      ? user.metadata.lastSignInTime
-                                      : null,
-                                  visitsCount: 0,
-                                  country:
-                                    jsonResponse && jsonResponse.country
-                                      ? jsonResponse.country
-                                      : null,
-                                });
-                            });
-                        }
-                      );
-                    } else {
-                      fetch("https://ipinfo.io/json?token=9e902eb7529457")
-                        .then(function (response) {
-                          return response.json();
-                        })
-                        .then(async function (jsonResponse) {
-                          console.log(jsonResponse);
                           firebase
                             .firestore()
                             .collection("Users")
@@ -110,6 +78,7 @@ const RegisterPage = ({ history, setAlert }) => {
                             .set({
                               email,
                               gender,
+                              photo: url,
                               agent: navigator.userAgentData.platform,
                               emailVerified: user.emailVerified,
                               lastSignInTime:
@@ -118,27 +87,31 @@ const RegisterPage = ({ history, setAlert }) => {
                                   : null,
                               visitsCount: 0,
                               country:
-                                jsonResponse && jsonResponse.country
-                                  ? jsonResponse.country
+                                geoData && geoData.data
+                                  ? geoData.data.country_name
                                   : null,
                             });
-                        })
-                        .catch((err) => {
-                          firebase
-                            .firestore()
-                            .collection("Users")
-                            .doc(user.uid)
-                            .set({
-                              ...providerData,
-                              agent: navigator.userAgentData.platform,
-                              country: null,
-                              emailVerified: user.emailVerified,
-                              lastSignInTime:
-                                user.metadata && user.metadata.lastSignInTime
-                                  ? user.metadata.lastSignInTime
-                                  : null,
-                              visitsCount: 0,
-                            });
+                        }
+                      );
+                    } else {
+                      firebase
+                        .firestore()
+                        .collection("Users")
+                        .doc(user.uid)
+                        .set({
+                          email,
+                          gender,
+                          agent: navigator.userAgentData.platform,
+                          emailVerified: user.emailVerified,
+                          lastSignInTime:
+                            user.metadata && user.metadata.lastSignInTime
+                              ? user.metadata.lastSignInTime
+                              : null,
+                          visitsCount: 0,
+                          country:
+                            geoData && geoData.data
+                              ? geoData.data.country_name
+                              : null,
                         });
                     }
                   }
@@ -170,13 +143,16 @@ const RegisterPage = ({ history, setAlert }) => {
       setAlert("Please select an image file (png or jpeg)", "danger");
     }
   };
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         history.push("/");
       }
     });
-  }, [history]);
+
+    getGeoData();
+  }, [history,getGeoData]);
   return (
     <FormContainer>
       <div className="d-flex justify-content-center mt-4">
@@ -217,8 +193,8 @@ const RegisterPage = ({ history, setAlert }) => {
             value="Male"
             label="Male"
             name="rd-gender"
-            checked={gender === "Male"}
-            onClick={(e) => setGender(e.target.value)}
+            checked={gender === "Male" ? true : false}
+            onChange={(e) => setGender(e.target.value)}
           />
 
           <Form.Check
@@ -227,8 +203,8 @@ const RegisterPage = ({ history, setAlert }) => {
             label="Female"
             value="Female"
             name="rd-gender"
-            checked={gender === "Female"}
-            onClick={(e) => setGender(e.target.value)}
+            checked={gender === "Female" ? true : false}
+            onChange={(e) => setGender(e.target.value)}
           />
         </>
         <Form.Group className="mt-2">
@@ -268,15 +244,20 @@ const RegisterPage = ({ history, setAlert }) => {
         </div>
       </Form>
       <div className="justify-content-center d-flex mt-3">
-        Have an Account <Link to="/login">Login</Link>
+        Have an Account&nbsp;<Link to="/login">Login</Link>
       </div>
     </FormContainer>
   );
 };
 
+const mapStateToProps = (state) => {
+  const { geoData } = state;
+  return { geoData: geoData };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     setAlert: (content, type) => dispatch(setAlert(content, type)),
+    getGeoData: () => dispatch(getGeoData()),
   };
 };
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

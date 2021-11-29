@@ -13,8 +13,9 @@ import firebase from "firebase";
 import Loader from "../components/Loader";
 import { connect } from "react-redux";
 import { setAlert } from "../redux/alert/alertActions";
+import { getGeoData } from "../redux/geoData/geoDataActions";
 
-const LoginPage = ({ history, setAlert }) => {
+const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,41 +37,21 @@ const LoginPage = ({ history, setAlert }) => {
           .doc(user.uid);
         const userData = await (await userFromColl.get()).data();
         if (!userData) {
-          fetch("https://ipinfo.io/json?token=9e902eb7529457")
-            .then((response) => response.json())
-            .then((jsonResponse) => {
-              firebase
-                .firestore()
-                .collection("Users")
-                .doc(user.uid)
-                .set({
-                  ...providerData,
-                  agent: navigator.userAgentData.platform,
-                  country: jsonResponse.country,
-                  emailVerified: user.emailVerified,
-                  lastSignInTime:
-                    user.metadata && user.metadata.lastSignInTime
-                      ? user.metadata.lastSignInTime
-                      : null,
-                  visitsCount: 0,
-                });
-            })
-            .catch((err) => {
-              firebase
-                .firestore()
-                .collection("Users")
-                .doc(user.uid)
-                .set({
-                  ...providerData,
-                  agent: navigator.userAgentData.platform,
-                  country:null,
-                  emailVerified: user.emailVerified,
-                  lastSignInTime:
-                    user.metadata && user.metadata.lastSignInTime
-                      ? user.metadata.lastSignInTime
-                      : null,
-                  visitsCount: 0,
-                });
+          firebase
+            .firestore()
+            .collection("Users")
+            .doc(user.uid)
+            .set({
+              ...providerData,
+              agent: navigator.userAgentData.platform,
+              country:
+                geoData && geoData.data ? geoData.data.country_name : null,
+              emailVerified: user.emailVerified,
+              lastSignInTime:
+                user.metadata && user.metadata.lastSignInTime
+                  ? user.metadata.lastSignInTime
+                  : null,
+              visitsCount: 0,
             });
           if (!user.emailVerified) {
             firebase.auth().signOut();
@@ -139,7 +120,8 @@ const LoginPage = ({ history, setAlert }) => {
         history.push("/");
       }
     });
-  }, [history]);
+    getGeoData();
+  }, [history,getGeoData]);
   return (
     <FormContainer>
       <div className="justify-content-center d-flex mt-3">
@@ -178,7 +160,7 @@ const LoginPage = ({ history, setAlert }) => {
           <Link to="/ForgotPassword?">Forgot your password ?</Link>
         </div>
         <div className="justify-content-center d-flex mt-3">
-          New Customer <Link to="/register">Register</Link>
+          New Customer&nbsp;<Link to="/register">Register</Link>
         </div>
       </Form>
       <hr />
@@ -208,10 +190,14 @@ const LoginPage = ({ history, setAlert }) => {
     </FormContainer>
   );
 };
-
+const mapStateToProps = (state) => {
+  const { geoData } = state;
+  return { geoData: geoData };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     setAlert: (content, type) => dispatch(setAlert(content, type)),
+    getGeoData: () => dispatch(getGeoData()),
   };
 };
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

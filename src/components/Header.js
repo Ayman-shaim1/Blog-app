@@ -47,13 +47,15 @@ const Header = () => {
         <LinkContainer to="/">
           <Navbar.Brand>Blog</Navbar.Brand>
         </LinkContainer>
-        {isAdmin && (
+        {isLogin && (
           <NavDropdown
             title={`Hello ${
               firebase.auth().currentUser &&
               firebase.auth().currentUser.displayName
                 ? firebase.auth().currentUser.displayName
-                : firebase.auth().currentUser.email
+                : firebase.auth().currentUser
+                ? firebase.auth().currentUser.email
+                : "New User"
             }`}
             id="collasible-nav-dropdown-sm">
             <LinkContainer to="/Articles">
@@ -90,11 +92,11 @@ const Header = () => {
                       firebase.auth().currentUser &&
                       firebase.auth().currentUser.displayName
                         ? firebase.auth().currentUser.displayName
-                        : firebase.auth().currentUser.email
-                        
+                        : firebase.auth().currentUser
+                        ? firebase.auth().currentUser.email
+                        : "New User"
                     }`}
-                    id="collasible-nav-dropdown"
-                    >
+                    id="collasible-nav-dropdown">
                     <LinkContainer to="/Articles">
                       <NavDropdown.Item>Articles</NavDropdown.Item>
                     </LinkContainer>
