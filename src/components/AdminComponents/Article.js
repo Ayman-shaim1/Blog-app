@@ -20,9 +20,13 @@ const Article = ({ article }) => {
             <Badge className="position-absolute bg-info iv-info-article">
               Not yet published
             </Badge>
-          ) : (
+          ) : article.status === "published" ? (
             <Badge className="position-absolute bg-success iv-info-article">
               published
+            </Badge>
+          ) : (
+            <Badge className="position-absolute bg-danger iv-info-article">
+              pending for review
             </Badge>
           )}
         </div>

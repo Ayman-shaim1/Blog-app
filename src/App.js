@@ -167,7 +167,7 @@ const App = () => {
         <Container>
           <hr />
           <div className="justify-content-center d-flex pb-2">
-            <span>Copyright &copy; {new Date().getFullYear()} Blog-App</span>
+            <span>Copyright &copy; {new Date().getFullYear()} E-Blog</span>
           </div>
         </Container>
       </footer>

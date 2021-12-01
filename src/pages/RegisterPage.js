@@ -9,12 +9,7 @@ import { getGeoData } from "../redux/geoData/geoDataActions";
 
 import Loader from "../components/Loader";
 
-const RegisterPage = ({
-  history,
-  setAlert,
-  getGeoData,
-  geoData,
-}) => {
+const RegisterPage = ({ history, setAlert, getGeoData, geoData }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("Male");
@@ -90,6 +85,10 @@ const RegisterPage = ({
                                 geoData && geoData.data
                                   ? geoData.data.country_name
                                   : null,
+                              ipAddress:
+                                geoData && geoData.data
+                                  ? geoData.data.IPv4
+                                  : null,
                             });
                         }
                       );
@@ -112,6 +111,8 @@ const RegisterPage = ({
                             geoData && geoData.data
                               ? geoData.data.country_name
                               : null,
+                          ipAddress:
+                            geoData && geoData.data ? geoData.data.IPv4 : null, 
                         });
                     }
                   }
@@ -140,7 +141,7 @@ const RegisterPage = ({
       setImage(selected);
     } else {
       setImage("");
-      setAlert("Please select an image file (png or jpeg)", "danger");
+      setAlert("Please select an image file (png,jpeg,jpg or svg )", "danger");
     }
   };
 
@@ -152,7 +153,7 @@ const RegisterPage = ({
     });
 
     getGeoData();
-  }, [history,getGeoData]);
+  }, [history, getGeoData]);
   return (
     <FormContainer>
       <div className="d-flex justify-content-center mt-4">

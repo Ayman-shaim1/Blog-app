@@ -18,7 +18,7 @@ const CreateArticlePage = ({ history, setAlert }) => {
 
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
-  const types = ["image/png", "image/jpeg"];
+  const types = ["image/png", "image/jpeg", "image/jpg", "image/svg"];
 
   const editorRef = useRef(null);
 
@@ -28,7 +28,7 @@ const CreateArticlePage = ({ history, setAlert }) => {
       setImage(selected);
     } else {
       setImage("");
-      setAlert("Please select an image file (png or jpeg)", "danger");
+      setAlert("Please select an image file (png,jpeg,jpg or svg )", "danger");
     }
   };
   const changeCategoryHandler = (e) => {
@@ -56,19 +56,15 @@ const CreateArticlePage = ({ history, setAlert }) => {
       user.email
     ) {
       const storageRef = db.storage().ref(image.name);
-      // storageRef.delete()
-      const collectionRef = db.firestore().collection("Article");
       storageRef.put(image).on(
         "state_changed",
-        (snap) => {
-          setLoading(true);
-        },
+        (snap) => {},
         (err) => {
           setAlert(err, "danger");
         },
         async () => {
           const url = await storageRef.getDownloadURL();
-          collectionRef.add({
+          db.firestore().collection("Article").add({
             title,
             category,
             subCategory,
@@ -87,6 +83,11 @@ const CreateArticlePage = ({ history, setAlert }) => {
           setLoading(false);
           setAlert("this post has been added with successfully", "success");
         }
+      );
+    } else {
+      setAlert(
+        "Please ! you have to enter all the informations in the fields !",
+        "danger"
       );
     }
   };
@@ -153,7 +154,7 @@ const CreateArticlePage = ({ history, setAlert }) => {
             type="file"
             className="mb-2"
             placeholder="Enter Article image"
-            accept=".png,.jpg,.jpeg"
+            accept=".png,.jpg,.jpeg,.svg"
             onChange={changeHandler}></Form.Control>
         </Form.Group>
         <Form.Group>
@@ -234,7 +235,7 @@ const CreateArticlePage = ({ history, setAlert }) => {
                     '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>',
                 },
               ],
-         
+
               height: 500,
               image_caption: true,
               quickbars_selection_toolbar:
@@ -242,7 +243,7 @@ const CreateArticlePage = ({ history, setAlert }) => {
               noneditable_noneditable_class: "mceNonEditable",
               toolbar_mode: "sliding",
               contextmenu: "link image imagetools table",
-          
+
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}

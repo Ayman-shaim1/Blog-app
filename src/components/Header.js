@@ -45,7 +45,7 @@ const Header = () => {
     <Navbar bg="primary" variant="dark" expand="lg">
       <Container>
         <LinkContainer to="/">
-          <Navbar.Brand>Blog</Navbar.Brand>
+          <Navbar.Brand>E-Blog</Navbar.Brand>
         </LinkContainer>
         {isLogin && (
           <NavDropdown

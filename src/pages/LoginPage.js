@@ -44,14 +44,15 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
             .set({
               ...providerData,
               agent: navigator.userAgentData.platform,
-              country:
-                geoData && geoData.data ? geoData.data.country_name : null,
               emailVerified: user.emailVerified,
               lastSignInTime:
                 user.metadata && user.metadata.lastSignInTime
                   ? user.metadata.lastSignInTime
                   : null,
               visitsCount: 0,
+              country:
+                geoData && geoData.data ? geoData.data.country_name : null,
+              ipAddress: geoData && geoData.data ? geoData.data.IPv4 : null,
             });
           if (!user.emailVerified) {
             firebase.auth().signOut();
@@ -64,6 +65,7 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
           }
         } else {
           userFromColl.update({
+            ...userData,
             lastSignInTime:
               user.metadata && user.metadata.lastSignInTime
                 ? user.metadata.lastSignInTime
@@ -121,7 +123,7 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
       }
     });
     getGeoData();
-  }, [history,getGeoData]);
+  }, [history, getGeoData]);
   return (
     <FormContainer>
       <div className="justify-content-center d-flex mt-3">

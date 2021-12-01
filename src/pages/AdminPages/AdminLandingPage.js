@@ -5,6 +5,7 @@ import firebase from "firebase";
 import { LinkContainer } from "react-router-bootstrap";
 const AdminLandingPage = () => {
   const [nbrArticles, setNbrArticles] = useState(0);
+  const [nbrUnpublishedArticles, setNbrUnpublishedArticles] = useState(0);
   const [nbrPendingArticles, setNbrPendingArticles] = useState(0);
 
   useEffect(() => {
@@ -12,20 +13,24 @@ const AdminLandingPage = () => {
       .firestore()
       .collection("Article")
       .onSnapshot((snap) => {
-        let cpt = 0;
+        let cpt1 = 0;
+        let cpt2 = 0
         snap.forEach((doc) => {
           if (doc.data().status === "published") {
-            cpt++;
+            cpt1++;
+          } else if (doc.data().status === "pending_for_review") {
+            cpt2++
           }
         });
-        setNbrArticles(cpt);
+        setNbrArticles(cpt1);
+        setNbrPendingArticles(cpt2);
       });
 
     firebase
       .firestore()
       .collection("unPublishArticles")
       .onSnapshot((snap) => {
-        setNbrPendingArticles(snap.docs.length);
+        setNbrUnpublishedArticles(snap.docs.length);
       });
   }, []);
 
@@ -56,10 +61,10 @@ const AdminLandingPage = () => {
                   overlay={<Tooltip>click to see published articles</Tooltip>}>
                   <Card bg="info" className="mb-2" text="light">
                     <Card.Body>
-                      <h2 style={{ color: "#fff" }}>
+                      <h3 style={{ color: "#fff" }}>
                         <i className="fas fa-newspaper"></i> {nbrArticles}{" "}
-                        articles
-                      </h2>
+                        publiched articles
+                      </h3>
                     </Card.Body>
                   </Card>
                 </OverlayTrigger>
@@ -76,10 +81,32 @@ const AdminLandingPage = () => {
                   }>
                   <Card bg="info" text="light">
                     <Card.Body>
-                      <h2 style={{ color: "#fff" }}>
+                      <h3 style={{ color: "#fff" }}>
                         <i className="far fa-newspaper"></i>{" "}
-                        {nbrPendingArticles} pending Articles
-                      </h2>
+                        {nbrUnpublishedArticles} unpublished Articles
+                      </h3>
+                    </Card.Body>
+                  </Card>
+                </OverlayTrigger>
+              </a>
+            </LinkContainer>
+          </Col>
+
+          <Col xl={12} lg={12} md={12} sm={12}>
+            <LinkContainer to="/Admin/Articles/pending_for_review">
+              <a href="/">
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip>click to see pending for review articles</Tooltip>
+                  }>
+                  <Card bg="info" text="light">
+                    <Card.Body>
+                      <h3
+                        style={{ color: "#fff" }}
+                        className="justify-content-center d-flex">
+                        <i className="far fa-newspaper"></i>{" "}
+                        {nbrPendingArticles} pending for review Articles
+                      </h3>
                     </Card.Body>
                   </Card>
                 </OverlayTrigger>

@@ -11,6 +11,7 @@ const ArticlesPage = () => {
   const [articles, setArticles] = useState([]);
   const [searchArticles, setSearchArticles] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
+  
 
   const chooseCategoryHandler = (e) => {
     if (e.target.innerText !== "All") {
@@ -22,7 +23,7 @@ const ArticlesPage = () => {
       // Articles.where("category", "==", e.target.innerText);
 
       setSearchArticles(
-        articles.filter((art) => art.category === e.target.innerText )
+        articles.filter((art) => art.category === e.target.innerText)
       );
     } else {
       setChoosenCategory("");
@@ -78,7 +79,7 @@ const ArticlesPage = () => {
     Articles.onSnapshot((snap) => {
       const articles = [];
       snap.forEach((doc) => {
-        if (doc.data().status !== "unpublished")
+        if (doc.data().status === "published")
           articles.push({ ...doc.data(), id: doc.id });
       });
       setArticles(articles);

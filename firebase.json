@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "firebase": "Blog-App",
     "public": "build",
     "ignore": [
       "firebase.json",

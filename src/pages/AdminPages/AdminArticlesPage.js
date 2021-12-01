@@ -13,6 +13,7 @@ const AdminArticlesPage = ({ history, match }) => {
   const [articles, setArticles] = useState([]);
   const [searchArticles, setSearchArticles] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
+
   const chooseCategoryHandler = (e) => {
     if (e.target.innerText !== "All") {
       setChoosenCategory(e.target.innerText);
@@ -216,18 +217,19 @@ const AdminArticlesPage = ({ history, match }) => {
             <hr />
           </>
         )}
-        <div className="justify-content-center d-flex">
+        <div className="justify-content-center d-lg-flex d-sm-block">
           <Link
-            className={`m-1 btn btn-status btn-sm btn-outline-secondary ${
+            className={`m-1 btn btn-status btn-sm btn-outline-secondary d-sm-block ${
               !match.params.status && "active"
             }`}
             size="sm"
             to="/Admin/Articles">
             All
           </Link>
+
           <Link
             to="/Admin/Articles/published"
-            className={`m-1 btn btn-status btn-sm btn-outline-secondary ${
+            className={`m-1 btn btn-status btn-sm btn-outline-secondary d-sm-block ${
               match.params.status &&
               match.params.status === "published" &&
               "active"
@@ -237,13 +239,23 @@ const AdminArticlesPage = ({ history, match }) => {
           </Link>
           <Link
             to="/Admin/Articles/unpublished"
-            className={`m-1 btn btn-status btn-sm btn-outline-secondary ${
+            className={`m-1 btn btn-status btn-sm btn-outline-secondary d-sm-block ${
               match.params.status &&
               match.params.status === "unpublished" &&
               "active"
             }`}
             size="sm">
             Unpublished
+          </Link>
+          <Link
+            to="/Admin/Articles/pending_for_review"
+            className={`m-1 btn btn-status btn-sm btn-outline-secondary d-sm-block ${
+              match.params.status &&
+              match.params.status === "pending_for_review" &&
+              "active"
+            }`}
+            size="sm">
+            Pending for review
           </Link>
         </div>
         <hr />
