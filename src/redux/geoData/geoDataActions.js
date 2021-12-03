@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  GET_GEODATA_FAIL,
+
   GET_GEODATA_REQUEST,
   GET_GEODATA_SUCCESS,
   GET_GEODATA_RESET,
@@ -13,7 +13,7 @@ export const getGeoData = () => {
       const res = await axios.get("https://geolocation-db.com/json/");
       dispatch({ type: GET_GEODATA_SUCCESS, payload: res.data });
     } catch (error) {
-      dispatch({ type: GET_GEODATA_FAIL, payload: error });
+      dispatch({ type: GET_GEODATA_SUCCESS, payload: null });
     }
   };
 };
