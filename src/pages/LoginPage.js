@@ -21,61 +21,65 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
   const [loading, setLoading] = useState(false);
 
   const socialMediaAuthHandler = async (provider) => {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(async (result) => {
-        // const credential = result.credential;
-        // console.log(credential);
-        //const token = credential.accessToken;
-        const user = result.user;
+    if (geoData && geoData.data) {
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(async (result) => {
+          // const credential = result.credential;
+          // console.log(credential);
+          //const token = credential.accessToken;
+          const user = result.user;
 
-        const providerData = user.providerData[0];
-        const userFromColl = firebase
-          .firestore()
-          .collection("Users")
-          .doc(user.uid);
-        const userData = await (await userFromColl.get()).data();
-        if (!userData) {
-          firebase
+          const providerData = user.providerData[0];
+          const userFromColl = firebase
             .firestore()
             .collection("Users")
-            .doc(user.uid)
-            .set({
-              ...providerData,
-              agent: navigator.userAgentData.platform,
-              emailVerified: user.emailVerified,
+            .doc(user.uid);
+          const userData = await (await userFromColl.get()).data();
+          if (!userData) {
+            firebase
+              .firestore()
+              .collection("Users")
+              .doc(user.uid)
+              .set({
+                ...providerData,
+                agent: navigator.userAgentData.platform,
+                emailVerified: user.emailVerified,
+                lastSignInTime:
+                  user.metadata && user.metadata.lastSignInTime
+                    ? user.metadata.lastSignInTime
+                    : null,
+                visitsCount: 0,
+                country:
+                  geoData && geoData.data ? geoData.data.country_name : null,
+                ipAddress: geoData && geoData.data ? geoData.data.IPv4 : null,
+              });
+            if (!user.emailVerified) {
+              firebase.auth().signOut();
+              user.sendEmailVerification().then(() => {
+                setAlert(
+                  `we have sent to you a mail verification on ${user.email} please check this mail and verify your account `,
+                  "info"
+                );
+              });
+            }
+          } else {
+            userFromColl.update({
+              ...userData,
               lastSignInTime:
                 user.metadata && user.metadata.lastSignInTime
                   ? user.metadata.lastSignInTime
                   : null,
-              visitsCount: 0,
-              country:
-                geoData && geoData.data ? geoData.data.country_name : null,
-              ipAddress: geoData && geoData.data ? geoData.data.IPv4 : null,
-            });
-          if (!user.emailVerified) {
-            firebase.auth().signOut();
-            user.sendEmailVerification().then(() => {
-              setAlert(
-                `we have sent to you a mail verification on ${user.email} please check this mail and verify your account `,
-                "info"
-              );
             });
           }
-        } else {
-          userFromColl.update({
-            ...userData,
-            lastSignInTime:
-              user.metadata && user.metadata.lastSignInTime
-                ? user.metadata.lastSignInTime
-                : null,
-          });
-        }
-      })
-      .catch((err) => {
-        setAlert(err, "danger");
-      });
+        })
+        .catch((err) => {
+          setAlert(err, "danger");
+        });
+    } else {
+      setAlert("we have an small error signin again please !", "warnnig");
+    }
   };
   const authHandler = async (e) => {
     e.preventDefault();
@@ -123,6 +127,7 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
       }
     });
     getGeoData();
+
   }, [history, getGeoData]);
   return (
     <FormContainer>

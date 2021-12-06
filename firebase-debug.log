@@ -1,0 +1,36 @@
+[debug] [2021-12-05T22:04:07.345Z] ----------------------------------------------------------------------
+[debug] [2021-12-05T22:04:07.348Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\NANOTECH\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2021-12-05T22:04:07.348Z] CLI Version:   9.22.0
+[debug] [2021-12-05T22:04:07.348Z] Platform:      win32
+[debug] [2021-12-05T22:04:07.349Z] Node Version:  v15.3.0
+[debug] [2021-12-05T22:04:07.350Z] Time:          Sun Dec 05 2021 23:04:07 GMT+0100 (UTC+01:00)
+[debug] [2021-12-05T22:04:07.350Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-12-05T22:04:07.437Z] Object ".hosting" in "firebase.json" has unknown property: {"additionalProperty":"firebase"}
+[debug] [2021-12-05T22:04:07.437Z] Field ".hosting" in "firebase.json" is possibly invalid: should be array
+[debug] [2021-12-05T22:04:07.437Z] Field ".hosting" in "firebase.json" is possibly invalid: should match some schema in anyOf
+[debug] [2021-12-05T22:04:07.446Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-12-05T22:04:07.446Z] > authorizing via signed-in user (ayman.shaim10@gmail.com)
+[debug] [2021-12-05T22:04:07.446Z] [iam] checking project blog-app-5dfc0 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-12-05T22:04:07.450Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-12-05T22:04:07.450Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-12-05T22:04:07.623Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","date":"Sun, 05 Dec 2021 22:04:06 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-05T22:04:07.661Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/blog-app-5dfc0:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2021-12-05T22:04:08.428Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 05 Dec 2021 22:04:06 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=665","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-05T22:04:08.431Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/blog-app-5dfc0/serviceAccounts/blog-app-5dfc0@appspot.gserviceaccount.com:testIamPermissions  
+ {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2021-12-05T22:04:09.130Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 05 Dec 2021 22:04:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-05T22:04:09.135Z] > refreshing access token with scopes: []
+[debug] [2021-12-05T22:04:09.136Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-12-05T22:04:09.289Z] <<< HTTP RESPONSE 200 {"date":"Sun, 05 Dec 2021 22:04:07 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-05T22:04:09.308Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/blog-app-5dfc0 [none]
+[debug] [2021-12-05T22:04:09.591Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/blog-app-5dfc0 200
+[debug] [2021-12-05T22:04:09.591Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/blog-app-5dfc0 {"projectId":"blog-app-5dfc0","projectNumber":"727062339693","displayName":"Blog-App","name":"projects/blog-app-5dfc0","resources":{"hostingSite":"blog-app-5dfc0","storageBucket":"blog-app-5dfc0.appspot.com","locationId":"europe-west"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'blog-app-5dfc0'...
+[info] 
+[info] i  deploying functions, hosting 
+[info] Running command: cd backend  && node server.js

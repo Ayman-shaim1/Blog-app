@@ -24,114 +24,123 @@ const RegisterPage = ({ history, setAlert, getGeoData, geoData }) => {
     if (password !== confrimPassword) {
       setAlert("Passwords do not match", "danger");
     } else {
-      setLoading(true);
-      try {
-        await firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then(async () => {
-            await firebase.auth().onAuthStateChanged(async function (user) {
-              if (user) {
-                user.updateProfile({
-                  displayName: name,
-                });
-                user
-                  .sendEmailVerification()
-                  .then(() => {
-                    setAlert(
-                      `we have sent to you a mail verification on ${user.email} please check this mail and verify your account `,
-                      "info"
-                    );
-                  })
-                  .catch((err) => {
-                    setAlert("something wrong about the verfication", "danger");
+      if (geoData && geoData.data) {
+        setLoading(true);
+        try {
+          await firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(async () => {
+              await firebase.auth().onAuthStateChanged(async function (user) {
+                if (user) {
+                  user.updateProfile({
+                    displayName: name,
                   });
-
-                let existe = false;
-                const users = await firebase.firestore().collection("Users");
-                users.onSnapshot(async (snap) => {
-                  snap.forEach((doc) => {
-                    if (doc.data().email === email) {
-                      existe = true;
-                    }
-                  });
-                  if (!existe) {
-                    if (image) {
-                      const storageRef = firebase.storage().ref(image.name);
-                      storageRef.put(image).on(
-                        "state_changed",
-                        (snap) => {},
-                        (err) => {
-                          setAlert(err, "danger");
-                        },
-                        async () => {
-                          const url = await storageRef.getDownloadURL();
-                          firebase
-                            .firestore()
-                            .collection("Users")
-                            .doc(user.uid)
-                            .set({
-                              email,
-                              gender,
-                              photo: url,
-                              agent: navigator.userAgentData.platform,
-                              emailVerified: user.emailVerified,
-                              lastSignInTime:
-                                user.metadata && user.metadata.lastSignInTime
-                                  ? user.metadata.lastSignInTime
-                                  : null,
-                              visitsCount: 0,
-                              country:
-                                geoData && geoData.data
-                                  ? geoData.data.country_name
-                                  : null,
-                              ipAddress:
-                                geoData && geoData.data
-                                  ? geoData.data.IPv4
-                                  : null,
-                            });
-                        }
+                  user
+                    .sendEmailVerification()
+                    .then(() => {
+                      setAlert(
+                        `we have sent to you a mail verification on ${user.email} please check this mail and verify your account `,
+                        "info"
                       );
-                    } else {
-                      firebase
-                        .firestore()
-                        .collection("Users")
-                        .doc(user.uid)
-                        .set({
-                          email,
-                          gender,
-                          agent: navigator.userAgentData.platform,
-                          emailVerified: user.emailVerified,
-                          lastSignInTime:
-                            user.metadata && user.metadata.lastSignInTime
-                              ? user.metadata.lastSignInTime
-                              : null,
-                          visitsCount: 0,
-                          country:
-                            geoData && geoData.data
-                              ? geoData.data.country_name
-                              : null,
-                          ipAddress:
-                            geoData && geoData.data ? geoData.data.IPv4 : null, 
-                        });
-                    }
-                  }
-                });
-              }
-            });
-          });
+                    })
+                    .catch((err) => {
+                      setAlert(
+                        "something wrong about the verfication",
+                        "danger"
+                      );
+                    });
 
-        setLoading(false);
-        history.push("/");
-        firebase.auth().signOut();
-      } catch (error) {
-        if (error.code === "auth/email-already-in-use") {
-          setAlert("user alerady existe !!", "danger");
+                  let existe = false;
+                  const users = await firebase.firestore().collection("Users");
+                  users.onSnapshot(async (snap) => {
+                    snap.forEach((doc) => {
+                      if (doc.data().email === email) {
+                        existe = true;
+                      }
+                    });
+                    if (!existe) {
+                      if (image) {
+                        const storageRef = firebase.storage().ref(image.name);
+                        storageRef.put(image).on(
+                          "state_changed",
+                          (snap) => {},
+                          (err) => {
+                            setAlert(err, "danger");
+                          },
+                          async () => {
+                            const url = await storageRef.getDownloadURL();
+                            firebase
+                              .firestore()
+                              .collection("Users")
+                              .doc(user.uid)
+                              .set({
+                                email,
+                                gender,
+                                photo: url,
+                                agent: navigator.userAgentData.platform,
+                                emailVerified: user.emailVerified,
+                                lastSignInTime:
+                                  user.metadata && user.metadata.lastSignInTime
+                                    ? user.metadata.lastSignInTime
+                                    : null,
+                                visitsCount: 0,
+                                country:
+                                  geoData && geoData.data
+                                    ? geoData.data.country_name
+                                    : null,
+                                ipAddress:
+                                  geoData && geoData.data
+                                    ? geoData.data.IPv4
+                                    : null,
+                              });
+                          }
+                        );
+                      } else {
+                        firebase
+                          .firestore()
+                          .collection("Users")
+                          .doc(user.uid)
+                          .set({
+                            email,
+                            gender,
+                            agent: navigator.userAgentData.platform,
+                            emailVerified: user.emailVerified,
+                            lastSignInTime:
+                              user.metadata && user.metadata.lastSignInTime
+                                ? user.metadata.lastSignInTime
+                                : null,
+                            visitsCount: 0,
+                            country:
+                              geoData && geoData.data
+                                ? geoData.data.country_name
+                                : null,
+                            ipAddress:
+                              geoData && geoData.data
+                                ? geoData.data.IPv4
+                                : null,
+                          });
+                      }
+                    }
+                  });
+                }
+              });
+            });
+
+          setLoading(false);
+          history.push("/");
+          firebase.auth().signOut();
+        } catch (error) {
+          if (error.code === "auth/email-already-in-use") {
+            setAlert("user alerady existe !!", "danger");
+          }
+          if (error.code === "auth/weak-password") {
+            setAlert("password should be at least 6 characters !!", "danger");
+          }
+          setLoading(false);
         }
-        if (error.code === "auth/weak-password") {
-          setAlert("password should be at least 6 characters !!", "danger");
-        }
-        setLoading(false);
+      } else {
+        setAlert("we have an small error signup again please !", "warnnig");
       }
     }
   };
