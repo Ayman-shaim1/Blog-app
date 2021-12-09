@@ -140,7 +140,10 @@ const RegisterPage = ({ history, setAlert, getGeoData, geoData }) => {
           setLoading(false);
         }
       } else {
-        setAlert("we have an small error signup again please !", "warnnig");
+        setAlert(
+          "Please disable your adblocker to be able to create an account !",
+          "warning"
+        );
       }
     }
   };

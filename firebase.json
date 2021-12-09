@@ -13,11 +13,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "functions": {
-    "predeploy": [
-      "cd backend  && node server.js"
-    ],
-    "source": "functions"
   }
 }

@@ -1,14 +1,14 @@
 import Request from "request";
 import publicIp from "public-ip";
 import http from "http";
+import functions from "functions";
 
 const PORT = process.env.PORT || 4000;
 const server = http.createServer(async (req, res) => {
-  //set the request route
+
   if (req.url === "/api/getLocation" && req.method === "GET") {
-    //response headers
+
     res.writeHead(200, { "Content-Type": "application/json" });
-    //set the response:
     const ipAddress = await publicIp.v4();
     const options = {
       uri: `https://geolocation-db.com/json/${ipAddress}`,
@@ -30,7 +30,7 @@ const server = http.createServer(async (req, res) => {
     });
   }
 
-  // If no route present
+
   else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "Route not found" }));

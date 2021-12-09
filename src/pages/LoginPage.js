@@ -78,7 +78,10 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
           setAlert(err, "danger");
         });
     } else {
-      setAlert("we have an small error signin again please !", "warnnig");
+      setAlert(
+        "Please disable your adblocker to be able to create an account !",
+        "warning"
+      );
     }
   };
   const authHandler = async (e) => {
@@ -127,13 +130,13 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
       }
     });
     getGeoData();
-
   }, [history, getGeoData]);
   return (
     <FormContainer>
       <div className="justify-content-center d-flex mt-3">
         <h4>Login Here !</h4>
       </div>
+
       <div className="justify-content-center d-flex mt-3">
         {loading && <Loader />}
       </div>

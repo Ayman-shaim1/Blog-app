@@ -15,6 +15,7 @@
   "author": "Ayman Shaim",
   "license": "ISC",
   "dependencies": {
+    "firebase-functions": "^3.16.0",
     "public-ip": "^4.0.4",
     "request": "^2.88.2"
   }
