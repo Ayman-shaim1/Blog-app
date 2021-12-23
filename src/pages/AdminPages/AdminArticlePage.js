@@ -350,7 +350,7 @@ const AdminArticlePage = ({ match, history, setAlert }) => {
                     </h6>
                   </div>
 
-                  <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between">  
                     <Button
                       variant="success"
                       size="sm"

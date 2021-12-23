@@ -1,5 +1,8 @@
 main {
-  min-height: 550px;
+  min-height: 600px;
+}
+ul{
+  list-style: none;
 }
 h1,
 h2,
@@ -19,7 +22,7 @@ textarea {
   resize: none;
   min-height: 100px;
 }
-a{
+a {
   text-decoration: none;
 }
 .nav-link {
@@ -28,8 +31,8 @@ a{
 .cursor-pointer {
   cursor: pointer;
 }
-.avatar{
-  width:40px;
+.avatar {
+  width: 40px;
   height: 40px;
   border-radius: 50%;
 }
@@ -39,10 +42,10 @@ a{
 .article-image {
   max-width: 450px;
 }
-.btn-status.active{
+.btn-status.active {
   background-color: #ced4da !important;
   color: #fff;
-} 
+}
 .in-change-photo {
   top: 2%;
   right: 2%;
@@ -67,6 +70,19 @@ a{
 .fabebookAuth-button:hover {
   background-color: rgb(39, 6, 155);
 }
+/* .navbar {
+  background-color: var(--bs-purple) !important;
+}
+.navbar .nav-link {
+  color: #fff !important;
+}
+.badge .bg-primary {
+  background-color: var(--bs-purple) !important;
+}
+
+.btn .btn-primary {
+  background-color: var(--bs-purple) !important;
+} */
 .nav-link-drp {
   margin-right: 55px;
 }
@@ -89,4 +105,3 @@ div[aria-labelledby="collasible-nav-dropdown-sm"].dropdown-menu.show {
     display: block !important;
   }
 }
-

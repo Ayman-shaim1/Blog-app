@@ -18,8 +18,9 @@ import {
   TwitterShareButton,
   // FacebookMessengerShareButton,
 } from "react-share";
+import Meta from "../components/Meta";
 
-const ArticlePage = ({ match }) => {
+const ArticlePage = ({ match, history }) => {
   const [article, setArticle] = useState(null);
   const [like, setLike] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -27,7 +28,7 @@ const ArticlePage = ({ match }) => {
 
   const [show, setShow] = useState(false);
   const [showBts, setShowBts] = useState(false);
-  const shareUrl = "https://blog-app-5dfc0.web.app/" + match.url;
+  const shareUrl = "https://blog-app-5dfc0.firebaseapp.com" + match.url;
   const articleContentRef = useRef(null);
 
   const likeArticleHandler = async () => {
@@ -245,8 +246,17 @@ const ArticlePage = ({ match }) => {
       match.params.id
     ).onSnapshot((snap) => {
       setArticle({ ...snap.docs[0].data() });
-      if (articleContentRef.current)
+      if (articleContentRef.current) {
         articleContentRef.current.innerHTML = snap.docs[0].data().textContent;
+        if (
+          snap &&
+          snap.docs[0] &&
+          snap.docs[0].data() &&
+          snap.docs[0].data().status !== "published"
+        ) {
+          history.push("/article");
+        }
+      }
     });
     const checkLikedFavoriteOrNot = async () => {
       const user = await firebase.auth().currentUser;
@@ -304,9 +314,15 @@ const ArticlePage = ({ match }) => {
       }
     };
     setTimeout(checkLikedFavoriteOrNot, 1000);
-  }, [match]);
+  }, [match, history]);
+
   return (
     <>
+      <Meta
+        title={`Welcome To E-Blog | ${article && article.title} `}
+        description={article && article.textContent}
+        image={article && article.image}
+      />
       <div className="justify-content-between d-flex">
         <Link to="/" className="btn btn-primary mb-2 btn-sm">
           Go To home

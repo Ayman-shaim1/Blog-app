@@ -11,7 +11,6 @@ const ArticlesPage = () => {
   const [articles, setArticles] = useState([]);
   const [searchArticles, setSearchArticles] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
-  
 
   const chooseCategoryHandler = (e) => {
     if (e.target.innerText !== "All") {

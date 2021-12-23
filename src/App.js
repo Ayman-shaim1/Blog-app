@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
 // import Alert from "./components/Alert";
@@ -15,11 +15,21 @@ import AdminUsersPage from "./pages/AdminPages/AdminUsersPage";
 import AdminArticlePage from "./pages/AdminPages/AdminArticlePage";
 import AdminCategoriesPage from "./pages/AdminPages/AdminCategoriesPage";
 import AdminLandingPage from "./pages/AdminPages/AdminLandingPage";
+
+import NotFoundPage from "./pages/NotFoundPage";
+
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import firebase from "firebase";
 import { removeAlert } from "./redux/alert/alertActions";
+import Footer from "./components/Footer";
+
+import AboutUsPage from "./pages/AboutUsPage";
+import ContactUsPage from "./pages/ContactUsPage";
+import AdvertiseWithUsPage from "./pages/AdvertiseWithUsPage";
+import ServicesPage from "./pages/ServicesPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 
 const App = () => {
   const MySwal = withReactContent(Swal);
@@ -135,42 +145,57 @@ const App = () => {
       <Header />
       <main className="py-3">
         <Container>
-          <Route path="/" component={ArticlesPage} exact />
-          <Route path="/Articles" component={ArticlesPage} exact />
-          <Route
-            path="/FavoriteArticles"
-            component={FavoriteArticlesPage}
-            exact
-          />
-          <Route path="/CreateArticle" component={CreateArticlePage} exact />
-          <Route path="/Article/:id" component={ArticlePage} exact />
-          <Route path="/Login" component={LoginPage} exact />
-          <Route path="/Register" component={RegisterPage} exact />
-          <Route path="/ForgotPassword" component={ForgotPasswordPage} exact />
-          <Route path="/Admin/Users" component={AdminUsersPage} exact />
-          <Route path="/Admin/Articles" component={AdminArticlesPage} exact />
-          <Route
-            path="/Admin/Articles/:status"
-            component={AdminArticlesPage}
-            exact
-          />
-          <Route path="/Admin/Article/:id" component={AdminArticlePage} exact />
-          <Route
-            path="/Admin/Categories"
-            component={AdminCategoriesPage}
-            exact
-          />
-          <Route path="/Admin" component={AdminLandingPage} exact />
+          <Switch>
+            <Route path="/" component={ArticlesPage} exact />
+            <Route path="/Articles" component={ArticlesPage} exact />
+            <Route
+              path="/FavoriteArticles"
+              component={FavoriteArticlesPage}
+              exact
+            />
+            <Route path="/CreateArticle" component={CreateArticlePage} exact />
+            <Route path="/Article/:id" component={ArticlePage} exact />
+            <Route path="/Login" component={LoginPage} exact />
+            <Route path="/Register" component={RegisterPage} exact />
+            <Route
+              path="/ForgotPassword"
+              component={ForgotPasswordPage}
+              exact
+            />
+            <Route path="/Admin/Users" component={AdminUsersPage} exact />
+            <Route path="/Admin/Articles" component={AdminArticlesPage} exact />
+            <Route
+              path="/Admin/Articles/:status"
+              component={AdminArticlesPage}
+              exact
+            />
+            <Route
+              path="/Admin/Article/:id"
+              component={AdminArticlePage}
+              exact
+            />
+            <Route
+              path="/Admin/Categories"
+              component={AdminCategoriesPage}
+              exact
+            />
+            <Route path="/Admin" component={AdminLandingPage} exact />
+
+            <Route path="/AboutUs" component={AboutUsPage} exact />
+            <Route path="/ContactUs" component={ContactUsPage} exact />
+            <Route
+              path="/AdvertiseWithUs"
+              component={AdvertiseWithUsPage}
+              exact
+            />
+            <Route path="/Services" component={ServicesPage} exact />
+            <Route path="/PrivacyPolicy" component={PrivacyPolicyPage} exact />
+            {/* Not found page */}
+            <Route component={NotFoundPage} exact />
+          </Switch>
         </Container>
       </main>
-      <footer>
-        <Container>
-          <hr />
-          <div className="justify-content-center d-flex pb-2">
-            <span>Copyright &copy; {new Date().getFullYear()} E-Blog</span>
-          </div>
-        </Container>
-      </footer>
+      <Footer />
     </Router>
   );
 };
