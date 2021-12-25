@@ -9,7 +9,7 @@ const ServicesPage = () => {
         </div>
       </div>
       <Row>
-        <Col>
+        <Col xl={4} lg={4} md={6} sm={12} className="mt-2">
           <Card>
             <Card.Header>
               <div className="d-flex justify-content-center">
@@ -28,7 +28,7 @@ const ServicesPage = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col>
+        <Col xl={4} lg={4} md={6} sm={12} className="mt-2">
           <Card>
             <Card.Header>
               <div className="d-flex justify-content-center">
@@ -47,7 +47,7 @@ const ServicesPage = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col>
+        <Col xl={4} lg={4} md={6} sm={12} className="mt-2">
           <Card>
             <Card.Header>
               <div className="d-flex justify-content-center">
