@@ -438,7 +438,7 @@ const ArticlePage = ({ match, history }) => {
                 </OverlayTrigger>
                 <Offcanvas show={show} onHide={handleClose} placement="bottom">
                   <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>
+                    <Offcanvas.Title as="h4">
                       Share this article on socials media
                     </Offcanvas.Title>
                   </Offcanvas.Header>
@@ -446,20 +446,20 @@ const ArticlePage = ({ match, history }) => {
                     <div className="d-flex justify-content-center">
                       <FacebookShareButton url={shareUrl} className="m-3">
                         <Icon.Facebook
-                          size={40}
+                          size={50}
                           style={{ color: "rgb(65, 34, 175)" }}
                         />
                       </FacebookShareButton>
                       {/* <FacebookMessengerShareButton
                         className="m-3"
                         url={shareUrl}>
-                        <Icon.Messenger size={40} className="text-info" />
+                        <Icon.Messenger size={50} className="text-info" />
                       </FacebookMessengerShareButton> */}
                       <WhatsappShareButton url={shareUrl} className="m-3">
-                        <Icon.Whatsapp size={40} className="text-success" />
+                        <Icon.Whatsapp size={50} className="text-success" />
                       </WhatsappShareButton>
                       <TwitterShareButton url={shareUrl} className="m-3">
-                        <Icon.Twitter size={40} className="text-info" />
+                        <Icon.Twitter size={50} className="text-info" />
                       </TwitterShareButton>
                     </div>
                   </Offcanvas.Body>

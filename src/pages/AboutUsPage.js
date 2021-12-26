@@ -13,7 +13,7 @@ const AboutUsPage = () => {
       </div>
       <hr />
       <div className="d-flex justify-content-center">
-        <p>
+        <p className="text-justify">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
           doloremque nesciunt dolorem numquam maxime quisquam magnam. Modi
           voluptate repellendus magnam voluptates adipisci deserunt ullam

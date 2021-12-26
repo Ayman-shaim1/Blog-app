@@ -17,7 +17,7 @@ const ServicesPage = () => {
               </div>
             </Card.Header>
             <Card.Body>
-              <p>
+              <p className="text-justify ">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
                 assumenda nam natus architecto ratione quasi quia autem, libero
                 eveniet fugit voluptas odio eligendi quo labore sequi explicabo
@@ -36,7 +36,7 @@ const ServicesPage = () => {
               </div>
             </Card.Header>
             <Card.Body>
-              <p>
+              <p className="text-justify">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
                 assumenda nam natus architecto ratione quasi quia autem, libero
                 eveniet fugit voluptas odio eligendi quo labore sequi explicabo
@@ -55,7 +55,7 @@ const ServicesPage = () => {
               </div>
             </Card.Header>
             <Card.Body>
-              <p>
+              <p className="text-justify">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
                 assumenda nam natus architecto ratione quasi quia autem, libero
                 eveniet fugit voluptas odio eligendi quo labore sequi explicabo
