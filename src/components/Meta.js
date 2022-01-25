@@ -20,18 +20,7 @@ const Meta = ({ title, description, keywords, image, url }) => {
       />
       <meta property="og:title" content={title} />
       <meta property="og:url" content={url} />
-      {/* twiter og meta  */}
-      <meta name="twitter:title" content={title} />
-      <meta
-        name="twitter:description"
-        content={
-          description && description.length >= 30
-            ? description.substring(0, 30) + "..."
-            : description
-        }
-      />
-      <meta name="twitter:image" content={image} />
-      <meta name="twitter:card" content="summary_large_image" />
+     
 
       <meta
         name="description"
