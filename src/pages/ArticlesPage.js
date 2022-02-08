@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Row, Col, Form } from "react-bootstrap";
-import db from "../firebase/config";
+import firebase from "../firebase/config";
 // import Message from "../components/Message";
 import Loader from "../components/Loader";
 import Article from "../components/Article";
@@ -54,7 +54,7 @@ const ArticlesPage = () => {
         )
       );
     } else {
-      const Articles = db.firestore().collection("Article");
+      const Articles = firebase.firestore().collection("Article");
       Articles.onSnapshot((snap) => {
         const articles = [];
         snap.forEach((doc) => {
@@ -66,7 +66,9 @@ const ArticlesPage = () => {
   };
 
   useEffect(() => {
-    const categories = db.firestore().collection("ArticleCategories");
+    firebase.analytics().logEvent("home_visited");
+
+    const categories = firebase.firestore().collection("ArticleCategories");
     categories.onSnapshot((snap) => {
       const articleCategories = [];
       snap.forEach((doc) => {
@@ -74,7 +76,7 @@ const ArticlesPage = () => {
       });
       setCategories(articleCategories);
     });
-    const Articles = db.firestore().collection("Article");
+    const Articles = firebase.firestore().collection("Article");
     Articles.onSnapshot((snap) => {
       const articles = [];
       snap.forEach((doc) => {
@@ -85,7 +87,7 @@ const ArticlesPage = () => {
       setSearchArticles(articles);
     });
 
-    // db.auth().signOut();
+    // firebase.auth().signOut();
   }, []);
   return (
     <>

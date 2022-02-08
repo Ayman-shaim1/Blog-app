@@ -7,9 +7,8 @@ const firebaseConfig = {
   storageBucket: "blog-app-5dfc0.appspot.com",
   messagingSenderId: "727062339693",
   appId: "1:727062339693:web:7187cd706f883c981c1f64",
-  measurementId: "G-SK8RQQW4Q1"
+  measurementId: "G-SK8RQQW4Q1",
 };
+
 firebase.initializeApp(firebaseConfig);
-
-
 export default firebase;

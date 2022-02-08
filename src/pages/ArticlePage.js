@@ -239,6 +239,7 @@ const ArticlePage = ({ match, history }) => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
+    firebase.analytics().logEvent("article_visited");
     const Articles = firebase.firestore().collection("Article");
     Articles.where(
       firebase.firestore.FieldPath.documentId(),
