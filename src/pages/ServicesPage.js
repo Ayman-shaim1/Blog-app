@@ -1,8 +1,12 @@
 import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
+import Meta from "../components/Meta";
+
+
 const ServicesPage = () => {
   return (
     <>
+      <Meta title="Welcome To E-Blog" />
       <div className="alert alert-info p-5">
         <div className="d-flex justify-content-center p-5">
           <h1>Services</h1>

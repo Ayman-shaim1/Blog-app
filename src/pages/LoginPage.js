@@ -14,6 +14,9 @@ import Loader from "../components/Loader";
 import { connect } from "react-redux";
 import { setAlert } from "../redux/alert/alertActions";
 import { getGeoData } from "../redux/geoData/geoDataActions";
+import Meta from "../components/Meta";
+
+
 
 const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
   const [email, setEmail] = useState("");
@@ -133,6 +136,7 @@ const LoginPage = ({ history, setAlert, getGeoData, geoData }) => {
   }, [history, getGeoData]);
   return (
     <FormContainer>
+       <Meta title="Welcome To E-Blog" />
       <div className="justify-content-center d-flex mt-3">
         <h4>Login Here !</h4>
       </div>

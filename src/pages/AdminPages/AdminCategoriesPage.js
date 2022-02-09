@@ -15,6 +15,8 @@ import {
 import { connect } from "react-redux";
 import { setAlert } from "../../redux/alert/alertActions";
 import SideBar from "../../components/AdminComponents/SideBar";
+import Meta from "../../components/Meta";
+
 
 const AdminCategoriesPage = ({ setAlert, history }) => {
   const [categories, setCategories] = useState([]);
@@ -159,7 +161,10 @@ const AdminCategoriesPage = ({ setAlert, history }) => {
           const Articles = firebase.firestore().collection("Article");
           Articles.get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              if (doc.data().subCategory.toLowerCase() === subCategory.toLowerCase())
+              if (
+                doc.data().subCategory.toLowerCase() ===
+                subCategory.toLowerCase()
+              )
                 firebase.firestore().collection("Article").doc(doc.id).update({
                   subCategory: value,
                 });
@@ -259,180 +264,188 @@ const AdminCategoriesPage = ({ setAlert, history }) => {
     });
   }, [history]);
   return (
-    <Row>
-      <Col xl={2} lg={2} md={3}>
-        <SideBar />
-      </Col>
-      <Col xl={10} lg={10} md={9}>
-        {choosenCategory && choosenCategory !== "" && (
-          <>
-            <strong>selected category : </strong>
-            <Alert variant="info" className="justify-content-between d-flex">
-              <h6>category id : {choosenCategory}</h6>
-              <h6>
-                category name :{" "}
-                {categories.find((x) => x.id === choosenCategory) &&
-                  categories.find((x) => x.id === choosenCategory).categoryName}
-              </h6>
-            </Alert>
-          </>
-        )}
+    <>
+      <Meta title="Welcome To E-Blog" />
+      <Row>
+        <Col xl={2} lg={2} md={3}>
+          <SideBar />
+        </Col>
+        <Col xl={10} lg={10} md={9}>
+          {choosenCategory && choosenCategory !== "" && (
+            <>
+              <strong>selected category : </strong>
+              <Alert variant="info" className="justify-content-between d-flex">
+                <h6>category id : {choosenCategory}</h6>
+                <h6>
+                  category name :{" "}
+                  {categories.find((x) => x.id === choosenCategory) &&
+                    categories.find((x) => x.id === choosenCategory)
+                      .categoryName}
+                </h6>
+              </Alert>
+            </>
+          )}
 
-        <Button size="sm" onClick={handleShowAddCategory}>
-          Add Category
-        </Button>
-        <Modal show={showAddCategory} onHide={handleCloseAddCategory}>
-          <Modal.Header closeButton>Add Category</Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={addCategoryHandler}>
-              <Form.Group>
-                <Form.Label>Name category</Form.Label>
-                <Form.Control
-                  onChange={(e) => setCategoryName(e.target.value)}
-                  value={categoryName}
-                  placeholder="Enter a name of category"
-                />
-              </Form.Group>
-              <div className="d-grid gap-2 mt-3">
-                <Button size="sm" type="submit">
-                  Add category
-                </Button>
-              </div>
-            </Form>
-          </Modal.Body>
-        </Modal>
-        <div className="justify-content-center d-flex my-2">
-          <h5>Categories</h5>
-        </div>
-        <Table hover responsive className="table-sm">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Category name</th>
-              <th colSpan="2">Update category name</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.length !== 0 &&
-              categories.map((category) => (
-                <OverlayTrigger
-                  placement="left"
-                  overlay={<Tooltip>click to see all sub categories</Tooltip>}>
-                  <tr
-                    key={category.id}
-                    className="cursor-pointer"
-                    onClick={() => {
-                      showSubCategoriesHandler(category.id);
-                    }}>
-                    <td>{category.id}</td>
-                    <td>{category.categoryName}</td>
-                    <td colSpan="10">
-                      <InputGroup className="mb-3">
-                        <Form.Control
-                          size="sm"
-                          placeholder="new category name"
-                          id={`txt-cat-${category.categoryName}`}
-                        />
-                        <Button
-                          size="sm"
-                          onClick={() =>
-                            addNewCategoryNameHandler(category.categoryName)
-                          }>
-                          <i className="fas fa-plus"></i>
-                        </Button>
-                      </InputGroup>
-                    </td>
+          <Button size="sm" onClick={handleShowAddCategory}>
+            Add Category
+          </Button>
+          <Modal show={showAddCategory} onHide={handleCloseAddCategory}>
+            <Modal.Header closeButton>Add Category</Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={addCategoryHandler}>
+                <Form.Group>
+                  <Form.Label>Name category</Form.Label>
+                  <Form.Control
+                    onChange={(e) => setCategoryName(e.target.value)}
+                    value={categoryName}
+                    placeholder="Enter a name of category"
+                  />
+                </Form.Group>
+                <div className="d-grid gap-2 mt-3">
+                  <Button size="sm" type="submit">
+                    Add category
+                  </Button>
+                </div>
+              </Form>
+            </Modal.Body>
+          </Modal>
+          <div className="justify-content-center d-flex my-2">
+            <h5>Categories</h5>
+          </div>
+          <Table hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Category name</th>
+                <th colSpan="2">Update category name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.length !== 0 &&
+                categories.map((category) => (
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip>click to see all sub categories</Tooltip>
+                    }>
+                    <tr
+                      key={category.id}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        showSubCategoriesHandler(category.id);
+                      }}>
+                      <td>{category.id}</td>
+                      <td>{category.categoryName}</td>
+                      <td colSpan="10">
+                        <InputGroup className="mb-3">
+                          <Form.Control
+                            size="sm"
+                            placeholder="new category name"
+                            id={`txt-cat-${category.categoryName}`}
+                          />
+                          <Button
+                            size="sm"
+                            onClick={() =>
+                              addNewCategoryNameHandler(category.categoryName)
+                            }>
+                            <i className="fas fa-plus"></i>
+                          </Button>
+                        </InputGroup>
+                      </td>
 
-                    <td>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => deleteCategoryHandler(category.id)}>
-                        <i className="fas fa-times"></i>
-                      </Button>
-                    </td>
-                  </tr>
-                </OverlayTrigger>
-              ))}
-          </tbody>
-        </Table>
-        {choosenCategory && (
-          <>
-            <Button
-              size="sm"
-              onClick={handleShowAddSubCategory}
-              className="mt-5 mb-3">
-              Add sub category
-            </Button>
-            <Modal show={showAddSubCategory} onHide={handleCloseAddSubCategory}>
-              <Modal.Header closeButton>Add Category</Modal.Header>
-              <Modal.Body>
-                <Form onSubmit={addSubCategoryHandler}>
-                  <Form.Group>
-                    <Form.Label>Name sub category</Form.Label>
-                    <Form.Control
-                      value={subCategoryName}
-                      onChange={(e) => setSubCategoryName(e.target.value)}
-                      placeholder="Enter a name of sub category"
-                    />
-                  </Form.Group>
-                  <div className="d-grid gap-2 mt-3">
-                    <Button size="sm" type="submit">
-                      Add sub category
-                    </Button>
-                  </div>
-                </Form>
-              </Modal.Body>
-            </Modal>
-          </>
-        )}
-        {subCategories && subCategories.length !== 0 && (
-          <>
-            <Table hover responsive className="table-sm">
-              <thead>
-                <tr>
-                  <th>subCategories</th>
-                  <th>update sub categories name</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {subCategories.map((subCategory) => (
-                  <tr key={subCategory} className="cursor-pointer">
-                    <td>{subCategory}</td>
-                    <td colSpan="10">
-                      <InputGroup className="mb-3">
-                        <Form.Control
-                          id={`txt-subcat-${subCategory}`}
-                          size="sm"
-                          placeholder="new sub category name"
-                        />
+                      <td>
                         <Button
+                          variant="danger"
                           size="sm"
-                          onClick={() =>
-                            addNewSubCategoryNameHandler(subCategory)
-                          }>
-                          <i className="fas fa-plus"></i>
+                          onClick={() => deleteCategoryHandler(category.id)}>
+                          <i className="fas fa-times"></i>
                         </Button>
-                      </InputGroup>
-                    </td>
-                    <td>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => deleteSubCategoryHandler(subCategory)}>
-                        <i className="fas fa-times"></i>
-                      </Button>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  </OverlayTrigger>
                 ))}
-              </tbody>
-            </Table>
-          </>
-        )}
-      </Col>
-    </Row>
+            </tbody>
+          </Table>
+          {choosenCategory && (
+            <>
+              <Button
+                size="sm"
+                onClick={handleShowAddSubCategory}
+                className="mt-5 mb-3">
+                Add sub category
+              </Button>
+              <Modal
+                show={showAddSubCategory}
+                onHide={handleCloseAddSubCategory}>
+                <Modal.Header closeButton>Add Category</Modal.Header>
+                <Modal.Body>
+                  <Form onSubmit={addSubCategoryHandler}>
+                    <Form.Group>
+                      <Form.Label>Name sub category</Form.Label>
+                      <Form.Control
+                        value={subCategoryName}
+                        onChange={(e) => setSubCategoryName(e.target.value)}
+                        placeholder="Enter a name of sub category"
+                      />
+                    </Form.Group>
+                    <div className="d-grid gap-2 mt-3">
+                      <Button size="sm" type="submit">
+                        Add sub category
+                      </Button>
+                    </div>
+                  </Form>
+                </Modal.Body>
+              </Modal>
+            </>
+          )}
+          {subCategories && subCategories.length !== 0 && (
+            <>
+              <Table hover responsive className="table-sm">
+                <thead>
+                  <tr>
+                    <th>subCategories</th>
+                    <th>update sub categories name</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subCategories.map((subCategory) => (
+                    <tr key={subCategory} className="cursor-pointer">
+                      <td>{subCategory}</td>
+                      <td colSpan="10">
+                        <InputGroup className="mb-3">
+                          <Form.Control
+                            id={`txt-subcat-${subCategory}`}
+                            size="sm"
+                            placeholder="new sub category name"
+                          />
+                          <Button
+                            size="sm"
+                            onClick={() =>
+                              addNewSubCategoryNameHandler(subCategory)
+                            }>
+                            <i className="fas fa-plus"></i>
+                          </Button>
+                        </InputGroup>
+                      </td>
+                      <td>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => deleteSubCategoryHandler(subCategory)}>
+                          <i className="fas fa-times"></i>
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </>
+          )}
+        </Col>
+      </Row>
+    </>
   );
 };
 

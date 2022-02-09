@@ -4,6 +4,10 @@ import firebase from "firebase";
 import Article from "../components/Article";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
+
+
+
 const FavoriteArticlesPage = ({ history }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -49,6 +53,7 @@ const FavoriteArticlesPage = ({ history }) => {
   }, [history]);
   return (
     <>
+     <Meta title="Welcome To E-Blog" />
       <Link to="/" className="btn btn-primary mb-2 btn-sm">
         Go To home
       </Link>

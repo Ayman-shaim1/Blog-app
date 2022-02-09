@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { setAlert } from "../../redux/alert/alertActions";
 import { Editor } from "@tinymce/tinymce-react";
 import SideBar from "../../components/AdminComponents/SideBar";
+import Meta from "../../components/Meta";
 
 const AdminArticlePage = ({ match, history, setAlert }) => {
   const [article, setArticle] = useState(null);
@@ -229,6 +230,8 @@ const AdminArticlePage = ({ match, history, setAlert }) => {
     }
   }, [history, match, category,categories,subCategory]);
   return (
+    <>
+     <Meta title="Welcome To E-Blog" />
     <Row>
       <Col xl={2} lg={2} md={3}>
         <SideBar />
@@ -462,6 +465,7 @@ const AdminArticlePage = ({ match, history, setAlert }) => {
         )}
       </Col>
     </Row>
+     </>
   );
 };
 

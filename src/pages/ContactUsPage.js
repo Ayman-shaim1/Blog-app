@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import emailjs from "emailjs-com";
 import { setAlert } from "../redux/alert/alertActions";
 import { connect } from "react-redux";
+import Meta from "../components/Meta";
 
 const ContactUsPage = ({ setAlert }) => {
   const form = useRef();
@@ -47,6 +48,7 @@ const ContactUsPage = ({ setAlert }) => {
 
   return (
     <>
+     <Meta title="Welcome To E-Blog" />
       <div className="alert alert-info p-5">
         <div className="p-5 d-flex justify-content-center">
           <h1>Contact us</h1>

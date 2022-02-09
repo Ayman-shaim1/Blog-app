@@ -4,6 +4,7 @@ import firebase from "../firebase/config";
 // import Message from "../components/Message";
 import Loader from "../components/Loader";
 import Article from "../components/Article";
+import Meta from "../components/Meta";
 
 const ArticlesPage = () => {
   const [categories, setCategories] = useState([]);
@@ -91,6 +92,7 @@ const ArticlesPage = () => {
   }, []);
   return (
     <>
+      <Meta title="Welcome To E-Blog" />
       <div className="d-flex justify-content-center">
         <h6>Choose category</h6>
       </div>

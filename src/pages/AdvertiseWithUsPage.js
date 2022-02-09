@@ -1,8 +1,10 @@
 import React from "react";
+import Meta from "../components/Meta";
 
 const AdvertiseWithUsPage = () => {
   return (
     <>
+     <Meta title="Welcome To E-Blog" />
       <div className="alert alert-info p-5">
         <div className="d-flex justify-content-center p-5">
           <h1>Advertise With Us</h1>

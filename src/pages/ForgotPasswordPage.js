@@ -4,6 +4,10 @@ import { Form, Button } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import { connect } from "react-redux";
 import { setAlert } from "../redux/alert/alertActions";
+import Meta from "../components/Meta";
+
+
+
 const ForgotPasswordPage = ({ history,setAlert }) => {
   const [email, setEmail] = useState("");
 
@@ -33,6 +37,7 @@ const ForgotPasswordPage = ({ history,setAlert }) => {
   }, [history]);
   return (
     <>
+     <Meta title="Welcome To E-Blog" />
       <FormContainer>
         <h2 className="my-3 ">Forgot password ?</h2>
         <p>

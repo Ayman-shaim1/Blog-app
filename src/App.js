@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
-
 import CreateArticlePage from "./pages/CreateArticlePage";
 import ArticlesPage from "./pages/ArticlesPage";
 import ArticlePage from "./pages/ArticlePage";
@@ -15,23 +14,18 @@ import AdminUsersPage from "./pages/AdminPages/AdminUsersPage";
 import AdminArticlePage from "./pages/AdminPages/AdminArticlePage";
 import AdminCategoriesPage from "./pages/AdminPages/AdminCategoriesPage";
 import AdminLandingPage from "./pages/AdminPages/AdminLandingPage";
-
 import NotFoundPage from "./pages/NotFoundPage";
-
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import firebase from "./firebase/config";
 import { removeAlert } from "./redux/alert/alertActions";
 import Footer from "./components/Footer";
-
 import AboutUsPage from "./pages/AboutUsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AdvertiseWithUsPage from "./pages/AdvertiseWithUsPage";
 import ServicesPage from "./pages/ServicesPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-
-
 
 const App = () => {
   const MySwal = withReactContent(Swal);
@@ -142,6 +136,7 @@ const App = () => {
       }
     });
   }, [alert, MySwal, dispatch]);
+
   return (
     <Router>
       <Header />

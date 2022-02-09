@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { setAlert } from "../redux/alert/alertActions";
 import Loader from "../components/Loader";
 import { Editor } from "@tinymce/tinymce-react";
+import Meta from "../components/Meta";
 
 const CreateArticlePage = ({ history, setAlert }) => {
   const [categories, setCategories] = useState([]);
@@ -113,7 +114,7 @@ const CreateArticlePage = ({ history, setAlert }) => {
   return (
     <FormContainer>
       {loading && <Loader />}
-
+      <Meta title="Welcome To E-Blog" />
       <Form onSubmit={submitHandler}>
         <Form.Group className="mt-2">
           <Form.Label>Article Title</Form.Label>

@@ -8,6 +8,7 @@ import { setAlert } from "../redux/alert/alertActions";
 import { getGeoData } from "../redux/geoData/geoDataActions";
 
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 
 const RegisterPage = ({ history, setAlert, getGeoData, geoData }) => {
   const [email, setEmail] = useState("");
@@ -168,6 +169,7 @@ const RegisterPage = ({ history, setAlert, getGeoData, geoData }) => {
   }, [history, getGeoData]);
   return (
     <FormContainer>
+       <Meta title="Welcome To E-Blog" />
       <div className="d-flex justify-content-center mt-4">
         <h4>Register here !</h4>
       </div>
