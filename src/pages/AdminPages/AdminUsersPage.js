@@ -105,6 +105,7 @@ const AdminUsersPage = ({ history }) => {
         );
     }
   };
+  
   useEffect(() => {
     const getUsers = async () => {
       firebase.auth().onAuthStateChanged(async function (user) {
